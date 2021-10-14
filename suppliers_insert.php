@@ -1,15 +1,15 @@
-<?php include('db_connect.php'); ?>
-<?php
-$sup_name=$_POST["sup_name"];
-$sup_phone=$_POST["sup_phone"];
-$sup_email=$_POST["sup_email"];
-$sup_address=$_POST["sup_address"];
-$sql="insert into suppliers values(null,'$sup_name','$sup_phone','$sup_email','$sup_address')";
-$conn->query($sql);
-$sql1="insert into login values('$sup_email','$sup_phone','shop','Enter Ur Email Id','$sup_email','Active')";
-$conn->query($sql1);
-?>
+<%@page import="java.sql.*"%>
+<%@page import="mba.dbconnect"%>
+<jsp:useBean id="s" class="mba.dbconnect"/>
+<jsp:getProperty name="s" property="conn"/>
+<%
+String sup_name=request.getParameter("sup_name");
+String sup_phone=request.getParameter("sup_phone");
+String sup_email=request.getParameter("sup_email");
+String sup_address=request.getParameter("sup_address");
+int k=s.stmt.executeUpdate("insert into suppliers values(null,'"+sup_name+"','"+sup_phone+"','"+sup_email+"','"+sup_address+"')");
+%>
 <script>
-alert("New Added Suppliers Details ");
-document.location="suppliers_view.php";
+alert("inserted..");
+document.location="suppliers_view.jsp";
 </script>

@@ -19,54 +19,56 @@
                     </div>
 </div> 
                  <!-- /. ROW  -->
-               <a href="customer_form.php" class="btn btn-info btn">Add New Customer </a> <hr> 
+                <a href="customer_form.php" class="btn btn-info btn">Add New Customer </a> 
+                <hr>
             <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Customer  Detailes
+                             Customer Detailes
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-      <th>Customer ID </th>
-      <th>Customer Name</th> 
-      <th>Mobile Number</th>
-      <th>Email ID </th>
-      <th>Date</th>
-      <th>City</th>
-      <th>Pincode</th>
-	  <th>Supplier</th>
-	   <th>Edit</th>
-       <th>Delete</th>
-     
+      <th><strong>Customer ID </strong></th>
+      <th><strong>Customer Name</strong></th>
+      <th><strong>Mobile Number</strong></th> 
+      <th><strong>Email ID </strong></th>
+      <th><strong>Date</strong></th>
+      <th><strong>City</strong></th>
+      <th><strong>Pincode</strong></th>
+      <th><strong>Supplier</strong></th>
+      <th><strong>Delete</strong></th>
+      <th><strong>Edit</strong></th>
     </tr>
 	</thead>
   <tbody>
 <?php include('db_connect.php'); ?>
+
 <?php
-$sr=1;
-$sql="select * from customer c,suppliers s where c.sup_id=s.sup_id";
+$uname=$_SESSION['uname'];
+$sql="select * from customer c,suppliers s where c.sup_id=s.sup_id and sup_email='$uname'";
 $res=$conn->query($sql);
 while($row=mysqli_fetch_array($res))
 {
 $id=$row['cust_id'];
+
 ?>
     <tr>
-      <td>&nbsp;<?php echo $sr++; ?></td>
+      <td>&nbsp;<?php echo $id; ?></td>
       <td>&nbsp;<?php echo $row['cust_name']; ?></td>
       <td>&nbsp;<?php echo $row['cust_phone']; ?></td>
       <td>&nbsp;<?php echo $row['cust_email']; ?></td>
       <td>&nbsp;<?php echo $row['date_become_cust']; ?></td>
       <td>&nbsp;<?php echo $row['cust_city']; ?></td>
       <td>&nbsp;<?php echo $row['pincode']; ?></td>
-	  <td>&nbsp;<?php echo $row['sup_name']; ?></td>
-	  <td>&nbsp;<a href="customer_update.php?id=<?php echo $row['cust_id'];?>"  title="Edit"><img src="icon/edit.jpg" height="30" width="30"></a></td>
-      <td>&nbsp;<a href="customer_delete.php?id=<?php echo $row['cust_id'];?>" onClick="return confirm('you want to delete');" title="Delete"><img src="icon/delete.jpg" height="30" width="30"></a></td>
+      <td>&nbsp;<?php echo $row['sup_name']; ?></td>
       
+	  <td>&nbsp;<a href="customer_delete.php?id=<?php echo $id; ?>"onClick="return confirm('you want to delete');" title="Delete"><img src="icon/delete.jpg" height="30" width="30"></a></td>
+      <td>&nbsp;<a href="customer_update.php?id=<?php echo $id; ?>" title="Edit"><img src="icon/edit.jpg" height="30" width="30"></a></td>
     </tr>
 	 <?php
   }

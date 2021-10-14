@@ -1,93 +1,109 @@
-<jsp:include page="meta_tags.jsp"></jsp:include>
-
-<jsp:include page="menus.jsp"></jsp:include>
-
-    
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <?php include('medatada.php');?>
+   <?php include('header.php');?>
+   <?php include('sidebar.php');?>
+<body>
   
-   <jsp:include page="side_menu.jsp"></jsp:include>
-
-    
-    <div class="content">
         
-    <div class="header">
-            
-            <h1 class="page-title">Customer Bill Add  Update</h1>
-    </div>
-        
-                <div class="container-fluid">
-            <div class="row-fluid">
-                  
-<div class="well">
-    
-    <div id="myTabContent" class="tab-content">
-      <div class="tab-pane active in" id="home">
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+			 <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                            <span class="style1">Customer Bill Add  Update</span><small>.</small>
+                        </h1>
+               </div>
+              </div> 
+                 <!-- /. ROW  -->
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="style1">Customer Bill Add  Update</span></div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
 
-<jsp:include page="val.jsp"></jsp:include>
-<%@page import="java.sql.*"%>
-<%@page import="mba.dbconnect"%>
-<jsp:useBean id="s" class="mba.dbconnect"/>
-<jsp:getProperty name="s" property="conn"/>
-<%
-String id=request.getParameter("id");
-ResultSet rs=s.stmt.executeQuery("select * from billdetails where bill_id="+id+"");
-rs.next();
-%>
+<?php include('db_connect.php'); ?>
+<?php
+$id=$_REQUEST["id"];
+$sql="select * from billdetails where bill_id='$id' ";
+$res=$conn->query($sql);
+$row=mysqli_fetch_array($res);
+?>
 
 
-<form name="form1" method="post" action="billdetails_update1.jsp" id="formID">
-<input type="hidden" value="<%=rs.getInt("bill_id")%>" name="bill_id"%> 
- <table class="table table-striped">
+<form name="form1" method="post" action="billdetails_update1.php" id="formID">
+<input type="hidden" value="<?php echo $row["bill_id"];?>" name="bill_id" > 
+<table align="center" class="table table-striped table-bordered table-hover">
     <tr>
       <td colspan="2"><div align="center">Bill Details </div></td>
     </tr>
     <tr>
       <td width="170">Bill master id </td>
-      <td width="144"><input name="bill_master_id" type="text" id="bill_master_id" value="<%=rs.getInt("bill_master_id")%>" class="validate[required,custom[onlyNumber]]"></td>
+      <td width="144"><input name="bill_master_id" type="text" id="bill_master_id" value="<?php echo $row["bill_master_id"]; ?>" class="validate[required,custom[onlyNumber]] form-control"></td>
     </tr>
     <tr>
       <td>Product id </td>
-      <td><input name="pro_id" type="text" id="pro_id" value="<%=rs.getInt("pro_id")%>" class="validate[required,custom[onlyNumber]]" ></td>
+      <td><input name="pro_id" type="text" id="pro_id" value="<?php echo $row["pro_id"]; ?>" class="validate[required,custom[onlyNumber]] form-control" ></td>
     </tr>
     <tr>
       <td>Quantity</td>
-      <td><input name="quantity" type="text" id="quantity" value="<%=rs.getInt("quantity")%>" class="validate[required,custom[onlyNumber]]"></td>
+      <td><input name="quantity" type="text" id="quantity" value="<?php echo $row["quantity"]; ?>" class="validate[required,custom[onlyNumber]] form-control"></td>
     </tr>
     <tr>
       <td>Rate</td>
-      <td><input name="rate" type="text" id="rate" value="<%=rs.getInt("rate")%>" class="validate[required,custom[onlyNumber]]"></td>
+      <td><input name="rate" type="text" id="rate" value="<?php echo $row["rate"]; ?>" class="validate[required,custom[onlyNumber]] form-control"></td>
     </tr>
     <tr>
       <td>Discount</td>
-      <td><input name="discount" type="text" id="discount" value="<%=rs.getInt("discount")%>" class="validate[required,custom[onlyNumber]]"></td>
+      <td><input name="discount" type="text" id="discount" value="<?php echo $row["discount"]; ?>" class="validate[required,custom[onlyNumber]] form-control"></td>
     </tr>
     <tr>
-      <td colspan="2"><input type="submit" name="Submit" value="Submit" class="btn btn-primary">
+      <td colspan="2"><input type="submit" name="Submit" value="Submit" class="btn btn-success btn">
       <input type="reset" name="Reset" value="Reset" class="btn btn-danger"></td>
     </tr>
   </table>
     <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
+ 
 </form>
 </div>
-  </div>
-
-</div>
-
-<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                    
+                                   
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+			<?php include('footer.php');?>
+			
+			</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+ <script src="assets/js/jquery-1.10.2.js"></script>
    
-  </div>
-  <div class="modal-body">
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/jquery.metisMenu.js"></script>
     
-
-  </div>
- 
-</div>
-
-
-<jsp:include page="footer.jsp"></jsp:include>
+    <script src="assets/js/custom-scripts.js"></script> 
+    <?php include('val.php'); ?>
+   
+</body>
+</html>

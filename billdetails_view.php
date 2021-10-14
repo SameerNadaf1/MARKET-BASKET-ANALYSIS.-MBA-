@@ -32,14 +32,14 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-    <th>BILL ID </th>
-    <th>BILL MASTER ID </th> 
-    <th>PRODUCT ID </th>
-    <th>QUANTITY</th>
-    <th>RATE</th>
-    <th>DISCOUNT</th>
-    <th>DELETE</th>
-    <th>EDIT</th>
+    <th>Bill ID </th>
+    <th>Bill Master ID </th> 
+    <th>Product ID </th>
+    <th>Quantity</th>
+    <th>Rate</th>
+    <th>Discount</th>
+    <th>Delete</th>
+    <th>Edit</th>
   </tr>
   </thead>
   <tbody>

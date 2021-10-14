@@ -4,10 +4,7 @@
 <?php include('medatada.php');?>
 <?php include('header.php');?>
 <?php include('sidebar.php');?>
-</head>
-<body>
-        <!--/. NAV TOP  -->
-        		 <script type="text/javascript">     
+     <script type="text/javascript">     
         function PrintDiv() {    
            var divToPrint = document.getElementById('divToPrint');
            var popupWin = window.open('', '_blank', 'width=300,height=300');
@@ -16,36 +13,35 @@
             popupWin.document.close();
                 }
      </script>
-	   <div id="divToPrint" >
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
+	  <div id="divToPrint" >
+	  
+	         <div id="page-wrapper" >
             <div id="page-inner">
 			 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-header"><strong>
-                          Bill Master  <small>Details</small>
-                        </strong></h1>
+                        <h1 class="page-header">
+                            Customer Bill Master   <small>Details</small>
+                        </h1>
                     </div>
-              </div> 
+                </div> 
                  <!-- /. ROW  -->
-             <!--    <a href="products_form.php" class="btn btn-info btn">Add New Product </a> <hr> -->
+                
             <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
-						
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Bill Master Detailes
+                            Customer Bill Master Details
                         </div>
                         <div class="panel-body">
-                            <div class="table-responsive">
-
-					
-			
+                          <div class="table-responsive">
+							
+							
+							
+    
 	 
 <?php include('db_connect.php'); ?>
 <?php
-
 $bmid=$_REQUEST['bmid'];
 $dat=$_REQUEST['dat'];
 $cust_id=$_REQUEST['cust_id'];
@@ -53,14 +49,14 @@ $cust_id=$_REQUEST['cust_id'];
 ?>
 
 
- <table class="table table-striped table-bordered table-hover" >
+<table border="1" class="table table-striped">
 						<thead>
     <tr>
-      <th width="53">Bill No 
+      <th width="47">Bill No 
 			
-        <input name="bmid" type="text" id="bmid" class="form-control" value="<?php echo $bmid;  ?>" size="5" readonly=""></th>
+        <input name="bmid" type="text" id="bmid" value="<?php echo $bmid; ?>" size="5" readonly=""></th>
       <th width="53"><div align="right">Date 
-            <input name="date" type="text" class="form-control" value="<?php echo $dat;?>">
+            <input name="date" type="text" value="<?php echo $dat; ?>">
       </div></th>
     </tr>
     <tr>
@@ -68,13 +64,14 @@ $cust_id=$_REQUEST['cust_id'];
         
         
 		  <?php
-		  $sql="select * from  customer where cust_id='$cust_id'";
-		$res=$conn->query($sql);
-		$row=mysqli_fetch_array($res);
+		  $sql_sp="select * from  customer where cust_id=$cust_id";
+		  $res_sp=$conn->query($sql_sp);
+			$row_sp=mysqli_fetch_array($res_sp);
+		
 		?>
 		
-		<p>Customer Name : <b><?php echo $row['cust_name'];?></b></p>
-		Customer Phone : <b><?php echo $row['cust_phone'];?></b>
+		<p>Customer Name : <b><?php echo $row_sp['cust_name']?></b></p>
+		Customer Phone : <b><?php echo $row_sp['cust_phone']?></b>
 		</td>
       <td>&nbsp;</td>
     </tr>
@@ -84,7 +81,7 @@ $cust_id=$_REQUEST['cust_id'];
     </tr>
   </table>
   <p>&nbsp;  </p>
- <table class="table table-striped table-bordered table-hover" >
+  <table border="1" class="table table-striped">
 						<thead>
     <tr>
       <th>Sl NO</th>
@@ -100,31 +97,30 @@ $cust_id=$_REQUEST['cust_id'];
 	</thead>
 	<?php
 	$slno=0;
-	$tot=0;
-	$vat=0;
-	$discount=0;
-	$total=0;
-	$gtotal=0;
-	$cgst=0;
-	$totgst1=0;
-	$tottg=0;
+	 $tot=0;
+	 $vat=0;
+	 $discount=0;
+	 $total=0;
+	 $gtotal=0;
+	 $cgst=0;
+	 $totgst1=0;
+	 $tottg=0;
 
-		$sql="select * from billdetails bd,products p,gst_category gc where bd.pro_id=p.pro_id and bd.bill_master_id='$bmid' and gc.gst_category_id=p.gst_category_id";
-		$res=$conn->query($sql);
-		while($row=mysqli_fetch_array($res))
-		{
-		$slno=slno+1;
-		$bill_id=$row['bill_id'];
-		$pid=$row['pro_id'];
-		
-		 $qnt=$row['quantity'];
-		 $rate=$row['rate'];
-		 $dic=$row['discount'];
-		 $pgst=$row['gst_category_percentage'];
+		$sql_od="select * from  billdetails bd,products p,gst_category gc where bd.pro_id=p.pro_id and bd.bill_master_id='$bmid' and gc.gst_category_id=p.gst_category_id";
+		 $res_od=$conn->query($sql_od);
+			while($row_od=mysqli_fetch_array($res_od))
+				{
+		$slno=$slno+1;
+		$bill_id=$row_od['bill_id'];
+		$pid=$row_od['pro_id'];
+		 $qnt=$row_od['quantity'];
+		 $rate=$row_od['rate'];
+		 $dic=$row_od['discount'];
+		 $pgst=$row_od['gst_category_percentage'];
 		 
-		$scgst=(pgst/2);
+		 $scgst=($pgst/2);
 		 $totgst1=$totgst1+$pgst;
-		$pname=$row['pro_name'];
+		 $pname=$row_od['pro_name'];
 		 
 		 $tot=($rate*$qnt);
 		 $discount=$discount+$dic;
@@ -138,14 +134,14 @@ $cust_id=$_REQUEST['cust_id'];
 		 $tottg=$tottg+$tot;
 		$vat=($tottg*$totgst1)/100;
 		 }
-		$totgst=($rate*$pgst)/100;
+		 $totgst=($rate*$pgst)/100;
 		 $sctg=($totgst/2);
 		 
 		  $totgstval=$tot+$totgst;
 		 
 		  $total=$total+$totgstval;
 		  
-		 $gtotal=($total+vat)- $discount;		
+		 $gtotal=($total+$vat)-$discount;		
 		?>
     <tr>
       <td>&nbsp;<?php echo $slno; ?></td>
@@ -156,7 +152,7 @@ $cust_id=$_REQUEST['cust_id'];
 	   <td>&nbsp;<b><?php echo $sctg; ?></b> (<?php echo $scgst; ?>%) </td>
 	    <td>&nbsp;<b><?php echo $totgst; ?></b> (<?php echo $pgst; ?>%)</td>
      
-      <td>&nbsp;<b><?php echo $totgstval; ?></b></td>
+      <td>&nbsp;<b> <?php echo $totgstval; ?></b></td>
      
     </tr>
     
@@ -165,51 +161,48 @@ $cust_id=$_REQUEST['cust_id'];
 	?>
 	<tr>
 	  <th colspan="7"><div align="right"><b>Total</b></div></th>
-	  <th>&nbsp;<b><?php echo $total;?><b></th>
-	
+	  <th>&nbsp;<?php echo $total; ?><b></th>
+	  
 	  </tr>
 	<tr>
 	  <td colspan="7"><div align="right"><b>Discount</b></div></td>
-	  <td>&nbsp;<b><?php echo $discount; ?></b></td>
-	
+	  <td> &nbsp; <b><?php echo $discount; ?></b></td>
+	  
 	  </tr>
 	<tr>
       <td colspan="7"><div align="right"><b>Total Tax </b></div></td>
-      <td>&nbsp;<b><?php echo $vat; ?></b></td>
-    
+      <td> &nbsp;<b> <?php echo $vat; ?></b></td>
+      
     </tr>
     <tr>
       <th colspan="7"><div align="right"><b>Grand Total </b></div></th>
-      <th>&nbsp;<b><?php echo $gtotal; ?><b></th>
+      <th><?php echo $gtotal; ?><b></th>
       
     </tr>
-  </tbody>
-                              </table>
-                            </div>
-                             
-                        </div>
-                    </div>
-                    <!--End Advanced Tables -->
-              
-                <!-- /. ROW  -->
-     
-        
-                    <!-- End  Hover Rows  -->
-					<a href="#" class="btn btn-primary"  onclick="PrintDiv();">Print</a>
-               <?php include('footer.php');?>
-                <div class="col-md-6">
-                     <!--    Context Classes  -->
-                    <div class="panel panel-default">
-                       
-                        
-                    </div>
-                    <!--  end  Context Classes  -->
-                </div>
-            </div>
-                <!-- /. ROW  -->
-        </div>
-           </div>
-               
+  </table>
+ 
+</div>
+</div>
+ <a href="#" class="btn btn-primary"  onclick="PrintDiv();">Print</a>
+			</div>
+  </div>
+ </div>
+<div class="pagination">
    
-</body>
-</html>
+</div>
+
+
+
+                    
+ <?php include('footer.php');?>
+
+
+
+
+
+
+
+
+
+
+

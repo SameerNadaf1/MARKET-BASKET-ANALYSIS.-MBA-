@@ -10,16 +10,16 @@
 -->
    </style>
 <body>
-  
+ 
         
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
             <div id="page-inner">
 			 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-header">
-                            <span class="style1">Employee Details</span><small>.</small>
-                        </h1>
+                        <h1 class="page-header"><strong>
+                          <strong>Stock </strong></strong>Details<strong> <small>.</small>
+                          </strong></h1>
                </div>
               </div> 
                  <!-- /. ROW  -->
@@ -27,66 +27,62 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <span class="style1">Employe Details</span></div>
+                            <span class="style1">Stock Details </span></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-
-
-
 <?php include('db_connect.php'); ?>
-<body>
 
-<form name="form1" method="post" action="employees_insert.php" id="formID">
-<table align="center" class="table table-striped table-bordered table-hover">
+<form name="form1" id="formID" method="post" action="stock_tabel_insert.php">
+  <table align="center" class="table table-striped table-bordered table-hover">
+  
     <tr>
-      <td colspan="2"><div align="center">Employe Details </div></td>
+      <td width="184"><strong>Select Product </strong></td>
+      <td><select name="prodcut_id" id="product_id" class="validate[required] form-control">
+        <option value="">Select Procuct</option>
+        <?php
+		  $sql="select * from  products";
+		  $res=$conn->query($sql);
+		while($row=mysqli_fetch_array($res))
+		{
+		?>
+        <option value="<?php echo $row['pro_id'];?>"><?php echo $row['pro_name']; ?></option>
+        <?php
+		}
+		  ?>
+      </select></td>
     </tr>
     <tr>
-      <td width="194"><strong>Employee Name</strong></td>
-      <td width="144"><input name="emp_name" type="text" id="emp_name" class="validate[required,custom[onlyLetter]]] form-control"></td>
+      <td><strong>Stock</strong></td>
+      <td><input name="stock" type="text" id="stock" class="validate[required] form-control"></td>
     </tr>
-    <tr>
-      <td><strong>Address</strong></td>
-      <td><textarea name="address" id="address"  class="validate[required]] form-control"></textarea></td>
-    </tr>
-    <tr>
-      <td><strong>Empolyee Phone Number</strong></td>
-      <td><input name="emp_phone" type="text" id="emp_phone" class="validate[required,custom[mobile]]] form-control"></td>
-    </tr>
-    <tr>
-      <td><strong>Gender</strong></td>
-      <td><input name="gender" type="radio" value="male" id="male" class="validate[required]] " >
-        male 
-        <input name="gender" type="radio" value="female" id="female"  class="validate[required]] ">
-        female</td>
-    </tr>
-    <tr>
-      <td><strong>Suplier Id </strong></td>
-      <td><select name="sup_id" id="sup_id" class="validate[required,custom[onlyNumber]]] form-control">
-       
-		<?php
-		$uname=$_SESSION["uname"];
-$sql="select * from suppliers where sup_email='$uname' ";
-$res=$conn->query($sql);
-while($row=mysqli_fetch_array($res))
+    <tr class="table table-striped">
+      <td><strong>Supplier </strong></td>
+      <td><select name="sup_id" id="sup_id" class="validate[required] form-control">
+          
+          <?php
+		 $uname=$_SESSION['uname'];
+$sql1="select * from suppliers where sup_email='$uname'";
+$res1=$conn->query($sql1);
+while($row1=mysqli_fetch_array($res1))
 {
-$id=$row["sup_id"];
+$id=$row1["sup_id"];
 ?>
-<option value="<?php echo $id; ?>"><?php echo $row["sup_name"]; ?>	</option>
-<?php
+          <option value="<?php echo $row1['sup_id']; ?>"><?php echo $row1['sup_name']; ?></option>
+         <?php
 }
 ?>
       </select></td>
     </tr>
     <tr>
       <td colspan="2"><div align="center">
-        <input type="submit" name="Submit" value="Submit" class="btn btn-success">
-        <input type="reset" name="Reset" value="Reset" class="btn btn-danger">
+          <input type="submit" name="Submit" value="Submit" class="btn btn-success">
+          <input type="reset" name="Reset" value="Reset" class="btn btn-danger">
       </div></td>
-    </tr>
+      </tr>
   </table>
- </form>
+  
+</form>
 </div>
                                 <!-- /.col-lg-6 (nested) -->
                                 <div class="col-lg-6">
@@ -113,6 +109,7 @@ $id=$row["sup_id"];
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
+	
  <script src="assets/js/jquery-1.10.2.js"></script>
    
     <script src="assets/js/bootstrap.min.js"></script>
@@ -120,7 +117,6 @@ $id=$row["sup_id"];
     <script src="assets/js/jquery.metisMenu.js"></script>
     
     <script src="assets/js/custom-scripts.js"></script> 
-    <?php include('val.php'); ?>
-   
+      <?php include('val.php'); ?>
 </body>
 </html>

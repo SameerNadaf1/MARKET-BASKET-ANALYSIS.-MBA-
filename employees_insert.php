@@ -1,17 +1,15 @@
-<%@page import="java.sql.*"%>
-<%@page import="mba.dbconnect"%>
-<jsp:useBean id="s" class="mba.dbconnect"/>
-<jsp:getProperty name="s" property="conn"/>
-<%
-String emp_name=request.getParameter("emp_name");
-String address=request.getParameter("address");
-String emp_phone=request.getParameter("emp_phone");
-String gender=request.getParameter("gender");
-String sup_id=request.getParameter("sup_id");
-int k=s.stmt.executeUpdate("insert into employees values(null,'"+emp_name+"','"+address+"',"+emp_phone+",'"+gender+"','"+sup_id+"')");
-%>
+<?php include('db_connect.php'); ?>
+<?php
+$emp_name=$_POST["emp_name"];
+$address=$_POST["address"];
+$emp_phone=$_POST["emp_phone"];
+$gender=$_POST["gender"];
+$sup_id=$_POST["sup_id"];
+$sql="insert into employees values(null,'$emp_name','$address',$emp_phone,'$gender','$sup_id')";
+$conn->query($sql);
+?>
 <script>
-alert("inserted..");
-document.location="employees_view.jsp";
+alert("Successfully ");
+document.location="employees_view.php";
 </script>
 

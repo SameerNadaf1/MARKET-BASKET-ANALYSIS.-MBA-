@@ -1,13 +1,16 @@
-<?php include('db_connect.php'); ?>
-<?php
-$pro_id=$_POST['pro_id'];
-$pro_name=$_POST['pro_name'];
-$pro_price_purchase=$_POST['pro_price_purchase'];
-$pro_price_sales=$_POST['pro_price_sales'];
-$sql="update products set pro_name='$pro_name',pro_price_purchase='$pro_price_purchase',pro_price_sales='$pro_price_sales' where pro_id='$pro_id'";
-$conn->query($sql);
-?>
+<%@page import="java.sql.*"%>
+<%@page import="mba.dbconnect"%>
+<jsp:useBean id="s" class="mba.dbconnect"/>
+<jsp:getProperty name="s" property="conn"/>
+<%
+String pro_id=request.getParameter("pro_id");
+String pro_name=request.getParameter("pro_name");
+String pro_price_purchase=request.getParameter("pro_price_purchase");
+String pro_price_sales=request.getParameter("pro_price_sales");
+String current_stock=request.getParameter("current_stock");
+int k=s.stmt.executeUpdate("update products set pro_name='"+pro_name+"',pro_price_purchase='"+pro_price_purchase+"',pro_price_sales='"+pro_price_sales+"',current_stock='"+current_stock+"' where pro_id="+pro_id+"");
+%>
 <script>
-alert("Products Update Successfully..");
-document.location="products_view.php";
+alert("updated...");
+document.location="products_view.jsp";
 </script>

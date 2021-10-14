@@ -1,46 +1,55 @@
+	 
+<%@page import="java.sql.*"%>
+<%@page import="mba.dbconnect"%>
+<jsp:useBean id="s" class="mba.dbconnect"/>
+<jsp:getProperty name="s" property="conn"/>
 
-<?php
-session_start();
-?>
-<?php
-		
-	 $a=$_POST['new_password'];
-   	$b=$_POST['confirm_password'];
-	
-		include('db_connect.php');
-		$sql = "select * from login where username ='".$_SESSION['uname']."' and password='".$_POST['old_password']."'";
-		$res=$conn->query($sql);
-	if($a==$b)
+	<%
+
+	String old=request.getParameter("old_pwd");
+	String pnew=request.getParameter("new_pwd");
+	String pconf=request.getParameter("con_pwd");
+
+	String uname=session.getAttribute("uname").toString();
+
+	ResultSet rs=s.stmt.executeQuery("select * from  login where username='"+uname+"' and password='"+old+"'");
+	if(rs.next())
 	{
-		if(mysqli_num_rows($res)>0)
+
+		if(pnew.equals(pconf))
 		{
-			 $sql1 = "update login set password = '".$_POST['new_password']."' where username ='".$_SESSION['uname']."'";
-			$res1 = $conn->query($sql1);
-			?>
-				<script>
-					alert('Successfully updated your password');
-					document.location="Change_Password.php";
-				</script>
-			<?php
-		} 
+			int k=s.stmt.executeUpdate("update Login set password='"+pnew+"' where  username='"+uname+"'");
+%>
+
+<script>
+		alert("password is Changed");
+		document.location="home.jsp";
+</script>
+
+<%
+		}
 		else
 		{
-			?>
-				<script>
-					alert('Failed to update your password');
-					document.location="Change_Password.php";
-				</script>
-			<?php
+%>
+
+<script>
+		alert("Check Conf password miss match");
+		history.back();
+</script>
+
+<%
 		}
-	}
-	else
+		}
+		else
 		{
-			?>
-				<script>
-					alert('New Password and Retype Password do not match');
-					document.location="Change_Password.php";
-				</script>
-			<?php
-		}
-		
-?>
+%>
+
+<script>
+		alert("Old password miss match");
+		history.back();
+</script>
+
+<%
+	}
+
+%>

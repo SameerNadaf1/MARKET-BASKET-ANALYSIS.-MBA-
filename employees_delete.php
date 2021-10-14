@@ -1,12 +1,10 @@
-  <%@page import="java.sql.*"%>
-<%@page import="mba.dbconnect"%>
-<jsp:useBean id="s" class="mba.dbconnect"/>
-<jsp:getProperty name="s" property="conn"/>
-<%
-String id=request.getParameter("id");
-int k=s.stmt.executeUpdate("delete from employees where  emp_id="+id+"");
-%>
+<?php include('db_connect.php'); ?>
+<?php
+$id=$_REQUEST["id"];
+$sql="delete from employees where  emp_id='$id' ";
+$conn->query($sql);
+?>
 <script>
 alert("deleted");
-document.location="employees_view.jsp";
+document.location="employees_view.php";
 </script>

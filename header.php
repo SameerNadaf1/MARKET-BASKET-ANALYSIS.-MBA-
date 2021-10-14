@@ -12,14 +12,10 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                     <a class="dropdown-toggle" href="Change_Password.php" aria-expanded="false">
+                    <a class="dropdown-toggle" href="Change_Password.php" aria-expanded="false">
                         <b class="btn btn-info">Change Password <i class="fa fa-key fa-fw"></i> </b>
                     </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                       
-                       
-                       
-                    </ul>
+                  
                     <!-- /.dropdown-messages -->
                 </li>
                 <!-- /.dropdown -->
@@ -31,7 +27,7 @@
                        <b class="btn btn-warning"><?php echo $_SESSION['uname']; ?> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></b>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="suppliers_update.php"><i class="fa fa-user fa-fw"></i> My Profile</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>

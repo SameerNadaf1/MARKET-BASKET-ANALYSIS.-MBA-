@@ -10,5 +10,5 @@ mysql_query($sql);
 ?>
 <script>
 alert("updated....");
-document.location="suppliers_view.php";
+document.location="suppliers_update.php";
 </script>
